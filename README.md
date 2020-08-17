@@ -8,8 +8,8 @@ The main code is point/views.py
 
 * POST `point/import`
   * Get a post parameter `data` which is a json string of the required data
-  * Data Example:
+  * Json Example:
 
 ```
-data=[["user1", "3452198438", 10], ["user2", "0987654321", 10], ["user3", "7478349022", 10]]
+[["user1", "3452198438", 10], ["user2", "0987654321", 10], ["user3", "7478349022", 10]]
 ```
