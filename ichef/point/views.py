@@ -3,7 +3,7 @@ import json
 from django.http import HttpResponse
 from django.db import transaction
 
-from .models import Member, Point
+from .models import Member, Point, OldPoint
 
 BULK_AMOUNT = 1000
 
@@ -28,5 +28,23 @@ def import_point(request):
 
     Member.objects.bulk_create(new_members, BULK_AMOUNT)
     Point.objects.bulk_create(new_points, BULK_AMOUNT)
+
+    return HttpResponse('Import OK')
+
+
+def old_import_point(request):
+    """
+    !!!NOTE!!!, this function only demonstrate a conception
+    """
+    data = json.loads(request.POST.get('data', json.dumps(DEFAULT_DATA)))
+    member_names = [d[0] for d in data]
+    if Member.objects.filter(name__in=member_names).exists():
+        raise Exception('Input data has duplicated username')
+
+    new_members = [Member(name=d[0], mobile=d[1]) for d in data]
+    new_points = [OldPoint(name=d[0], point=d[2]) for d in data]
+
+    Member.objects.bulk_create(new_members, BULK_AMOUNT)
+    OldPoint.objects.bulk_create(new_points, BULK_AMOUNT)
 
     return HttpResponse('Import OK')

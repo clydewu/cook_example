@@ -10,3 +10,8 @@ class Member(models.Model):
 class Point(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
     point = models.IntegerField(null=False)
+
+
+class OldPoint(models.Model):
+    name = models.CharField(max_length=128, null=False)
+    point = models.IntegerField(null=False)
