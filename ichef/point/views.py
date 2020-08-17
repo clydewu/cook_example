@@ -1,4 +1,5 @@
 # -*- coding:utf-8 -*-
+import json
 from django.http import HttpResponse
 from django.db import transaction
 
@@ -16,9 +17,10 @@ DEFAULT_DATA = [
 
 @transaction.atomic
 def import_point(request):
+    data = json.loads(request.POST.get('data', json.dumps(DEFAULT_DATA)))
     new_members = []
     new_points = []
-    for item in DEFAULT_DATA:
+    for item in data:
         name, mobile, point = tuple(item)
         member = Member(mobile=mobile, name=name)
         new_members.append(member)
