@@ -1,6 +1,6 @@
 # cook_example
 
-This is only a experiment repo, not production ready.
+This is only a experimental repo, not production ready.
 
 The main code is point/views.py
 
